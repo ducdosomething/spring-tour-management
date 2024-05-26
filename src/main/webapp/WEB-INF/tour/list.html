@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <title>List Tour</title>
+</head>
+<body>
+<h3>Tours</h3>
+<p>
+    <a th:href="@{/tours/create}">
+        Add new tour
+    </a>
+</p>
+<p>
+    <a th:href="@{/types}">
+        Types
+    </a>
+</p>
+<div class="notify">
+    <div th:if="${message}">
+        <span th:text="${message}"></span>
+    </div>
+</div>
+
+<table id = "tours">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Code</th>
+        <th>Destination</th>
+        <th>Price</th>
+        <th>Type</th>
+        <th>Update</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="t,tStatus : ${tours}">
+        <td th:text="${tStatus.count}"></td>
+        <td th:text="${t.getCode()}"></td>
+        <td th:text="${t.getDestination()}"></td>
+        <td th:text="${t.getPrice()}"></td>
+        <td th:text="${t.getType().getName()}"></td>
+        <td><a th:href="@{/tours/update/{id}(id=${t.getId()})}">update</a></td>
+        <td><a th:href="@{/tours/delete/{id}(id=${t.getId()})}">delete</a></td>
+        <td><a th:href="@{/tours/view/{id}(id=${t.getId()})}">view</a></td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

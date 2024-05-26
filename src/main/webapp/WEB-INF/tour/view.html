@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <title>Detail Tour</title>
+</head>
+<body>
+<h3>View Tour</h3>
+<p>
+    <a th:href="@{/tours}">
+        Back to tour list
+    </a>
+</p>
+<div id="detail">
+    <div class="cus-detail">
+        <label>Code:</label>
+        <label th:text="${tour.code}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Destination:</label>
+        <label th:text="${tour.destination}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Price:</label>
+        <label th:text="${tour.price}"></label>
+    </div>
+    <div class="cus-detail">
+        <label>Type:</label>
+        <label th:text="${tour.type.name}"></label>
+    </div>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
