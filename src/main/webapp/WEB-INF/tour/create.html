@@ -6,13 +6,13 @@
 <body>
 <h3>Add Tour</h3>
 <p>
-    <a th:href="@{/customers}">
+    <a th:href="@{/tours}">
         Back to tour list
     </a>
 </p>
 <div id="form">
-    <form th:action="@{/tours/create}" th:object="${tour}"
-          method="POST" novalidate="novalidate">
+    <form th:action="@{/tours/save}" th:object="${tour}"
+          method="POST" novalidate="novalidate" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}"/>
         <div>
             <label for="code">Code</label>
@@ -25,6 +25,10 @@
         <div>
             <label for="price">Price</label>
             <input type="text" id="price" th:field="*{price}"/>
+        </div>
+        <div>
+            <label for="image">Image</label>
+            <input type="file" id="image" th:field="*{image}"/>
         </div>
         <div>
             <label for="type">Type</label>

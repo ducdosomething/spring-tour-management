@@ -1,16 +1,22 @@
 package org.example.tourcrud.controller;
 
 import org.example.tourcrud.model.Tour;
+import org.example.tourcrud.model.TourForm;
 import org.example.tourcrud.model.Type;
 import org.example.tourcrud.service.ITourService;
 import org.example.tourcrud.service.ITypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -22,6 +28,9 @@ public class TourController {
 
     @Autowired
     private ITypeService typeService;
+
+    @Value("${file-upload}")
+    private String fileUpload;
 
     @ModelAttribute("types")
     public Iterable<Type> listTypes() {
@@ -49,6 +58,24 @@ public class TourController {
         tourService.save(tour);
         redirectAttributes.addFlashAttribute("message", "Create new tour successfully");
         return "redirect:/tours";
+    }
+
+    @PostMapping("/save")
+    public ModelAndView saveTour(@ModelAttribute TourForm tourForm) {
+        MultipartFile multipartFile = tourForm.getImage();
+        String fileName = multipartFile.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(tourForm.getImage().getBytes(), new File(fileUpload + fileName));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        Tour tour = new Tour(tourForm.getId(), tourForm.getCode(), tourForm.getDestination(),
+                tourForm.getPrice(), fileName, tourForm.getType());
+        tourService.save(tour);
+        ModelAndView modelAndView = new ModelAndView("/tour/create");
+        modelAndView.addObject("tourForm", tourForm);
+        modelAndView.addObject("message", "Created new tour successfully !");
+        return modelAndView;
     }
 
     @GetMapping("/update/{id}")

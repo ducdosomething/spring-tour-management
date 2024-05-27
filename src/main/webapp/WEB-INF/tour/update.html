@@ -26,12 +26,16 @@
             <label for="price">Price</label>
             <input type="text" id="price" th:field="*{price}"/>
         </div>
-                <div>
-                    <label for="type">Type</label>
-                    <select id="type" th:field="*{type}">
-                        <option th:each="t : ${types}" th:value="${t.id}" th:text="${t.name}"></option>
-                    </select>
-                </div>
+        <div>
+            <label for="image">Image</label>
+            <input type="file" id="image" th:field="*{image}"/>
+        </div>
+        <div>
+            <label for="type">Type</label>
+            <select id="type" th:field="*{type}">
+                <option th:each="t : ${types}" th:value="${t.id}" th:text="${t.name}"></option>
+            </select>
+        </div>
         <input type="submit" value="Edit"/>
     </form>
 </div>

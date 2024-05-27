@@ -1,27 +1,19 @@
 package org.example.tourcrud.model;
 
-import javax.persistence.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@Entity
-@Table(name = "tours")
-public class Tour {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TourForm {
     private Long id;
     private String code;
     private String destination;
     private double price;
-    private String image;
-
-    @ManyToOne
-    @JoinColumn(name = "type_id")
+    private MultipartFile image;
     private Type type;
 
-    public Tour() {
+    public TourForm() {
     }
 
-    public Tour(Long id, String code, String destination, double price, String image, Type type) {
+    public TourForm(Long id, String code, String destination, double price, MultipartFile image, Type type) {
         this.id = id;
         this.code = code;
         this.destination = destination;
@@ -62,11 +54,11 @@ public class Tour {
         this.price = price;
     }
 
-    public String getImage() {
+    public MultipartFile getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(MultipartFile image) {
         this.image = image;
     }
 

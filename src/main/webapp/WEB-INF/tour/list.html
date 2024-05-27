@@ -28,6 +28,7 @@
         <th>Code</th>
         <th>Destination</th>
         <th>Price</th>
+        <th>Image</th>
         <th>Type</th>
         <th>Update</th>
         <th>Delete</th>
@@ -40,6 +41,7 @@
         <td th:text="${t.getCode()}"></td>
         <td th:text="${t.getDestination()}"></td>
         <td th:text="${t.getPrice()}"></td>
+        <td><img width="100" height="100" th:src="@{'/image/' + ${t.image}}" alt="" src=""></td>
         <td th:text="${t.getType().getName()}"></td>
         <td><a th:href="@{/tours/update/{id}(id=${t.getId()})}">update</a></td>
         <td><a th:href="@{/tours/delete/{id}(id=${t.getId()})}">delete</a></td>
